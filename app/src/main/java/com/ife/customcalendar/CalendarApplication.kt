@@ -1,4 +1,4 @@
-package com.ife.customcalendar.fragments
+package com.ife.customcalendar
 
 import android.app.Application
 import com.jakewharton.threetenabp.AndroidThreeTen

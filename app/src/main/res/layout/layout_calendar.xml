@@ -1,21 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	xmlns:tools="http://schemas.android.com/tools"
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
-
-<!--		<TextView-->
-<!--			android:id="@+id/txtLbl"-->
-<!--			android:layout_width="match_parent"-->
-<!--			android:layout_height="wrap_content"-->
-<!--			android:text="Calendar View"-->
-<!--			android:textSize="18dp"-->
-<!--			android:gravity="center"-->
-<!--			app:layout_constraintStart_toStartOf="parent"-->
-<!--			app:layout_constraintEnd_toEndOf="parent"-->
-<!--			app:layout_constraintTop_toTopOf="parent"/>-->
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 	<include
 		android:id="@+id/includeLayoutDaysOfWeeks"
@@ -25,6 +12,7 @@
 		android:id="@+id/calendarView"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
 		app:cv_hasBoundaries="true"
 		app:cv_dayViewResource="@layout/layout_calendar_day"
 		app:cv_maxRowCount="6"

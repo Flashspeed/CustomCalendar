@@ -16,6 +16,7 @@ import java.util.*
 
 class FragmentCalendar: Fragment() {
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.layout_calendar, container, false)
@@ -33,12 +34,17 @@ class FragmentCalendar: Fragment() {
         calendarView.scrollToMonth(currentMonth)
 
         calendarView.dayBinder = object: DayBinder<CalendarDayViewContainer> {
+
             // Called only when a new container is needed
-            override fun create(view: View): CalendarDayViewContainer = CalendarDayViewContainer(view)
+            override fun create(view: View): CalendarDayViewContainer = CalendarDayViewContainer(
+                view,
+                calendarView
+            )
 
             // Called every time a container needs to be reused
             override fun bind(container: CalendarDayViewContainer, day: CalendarDay) {
-                container.calendarDayTextView.text = day.date.dayOfMonth.toString()
+                container.day = day
+                container.calendarDayTextView?.text = day.date.dayOfMonth.toString()
             }
         }
     }

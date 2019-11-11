@@ -8,15 +8,14 @@ import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.ViewContainer
 import kotlinx.android.synthetic.main.layout_calendar_day.view.*
 import org.threeten.bp.LocalDate
-import org.threeten.bp.format.DateTimeFormatter
 
-class CalendarDayViewContainer(view: View, calendarView: CalendarView) : ViewContainer(view)
+class CalendarDayViewContainer(
+    view: View,
+    calendarView: CalendarView,
+    selectedDates: MutableSet<LocalDate>
+) : ViewContainer(view)
 {
     val calendarDayTextView: TextView? = view.txtCalendarDayText
-
-    private val selectedDates = mutableSetOf<LocalDate>()
-    private val today = LocalDate.now()
-    private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
 
     // Will be set when this container is bound. See the dayBinder.
     lateinit var day: CalendarDay

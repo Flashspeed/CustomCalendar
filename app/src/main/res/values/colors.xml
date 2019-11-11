@@ -3,4 +3,9 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorSelectedDay">#F45350</color>
+    <color name="colorCurrentDay">#F1B6B5</color>
+    <color name="colorNormalUnselectedCalendarDay">#000000</color>
 </resources>

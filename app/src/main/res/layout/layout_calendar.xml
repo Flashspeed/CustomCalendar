@@ -7,9 +7,18 @@
     <Spinner
         android:id="@+id/spinnerMonthSelector"
         android:layout_width="150dp"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/spinnerHeight"
+        android:dropDownVerticalOffset="@dimen/spinnerHeight"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerYearSelector"
+        android:layout_width="150dp"
+        android:layout_height="@dimen/spinnerHeight"
+        android:dropDownVerticalOffset="@dimen/spinnerHeight"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!--    <include-->
     <!--        android:id="@+id/includeLayoutDaysOfWeeks"-->

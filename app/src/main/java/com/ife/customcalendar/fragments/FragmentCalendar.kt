@@ -16,6 +16,7 @@ import com.kizitonwose.calendarview.ui.DayBinder
 import kotlinx.android.synthetic.main.layout_calendar.*
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
+import org.threeten.bp.Year
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
 
@@ -130,8 +131,9 @@ class FragmentCalendar : Fragment()
                         .padStart(2, '0')
 
                     calendarView.scrollToMonth(
+                        /* Always begin with selecting the current year and month*/
                         YearMonth.parse(
-                            "2019-${(YearMonth.now().month.ordinal + 1).toString().padStart(
+                            "${Year.now()}-${(YearMonth.now().month.ordinal + 1).toString().padStart(
                                 2,
                                 '0'
                             )}"
@@ -153,7 +155,8 @@ class FragmentCalendar : Fragment()
 
                     calendarView.scrollToMonth(
                         YearMonth.parse(
-                            "2019-${(position + 1).toString().padStart(
+                            //TODO make year dynamic instead of always using current year
+                            "${Year.now()}-${(position + 1).toString().padStart(
                                 2,
                                 '0'
                             )}"

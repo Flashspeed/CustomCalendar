@@ -13,6 +13,8 @@
 .externalNativeBuild
 .cxx
 
+
+
 # Created by https://www.gitignore.io/api/windows,android,androidstudio
 # Edit at https://www.gitignore.io/?templates=windows,android,androidstudio
 
@@ -55,6 +57,7 @@ captures/
 
 # IntelliJ
 *.iml
+.idea
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/gradle.xml

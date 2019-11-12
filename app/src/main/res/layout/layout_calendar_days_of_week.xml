@@ -2,94 +2,95 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#ff4">
 
-	<TextView
-      android:id="@+id/txtLblSunday"
-      android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:text="Sun"
-      android:gravity="center"
-      app:layout_constraintEnd_toStartOf="@+id/txtLblMonday"
-		app:layout_constraintHorizontal_bias="0.5"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/txtLblSunday"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Sun"
+        app:layout_constraintEnd_toStartOf="@+id/txtLblMonday"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-	<TextView
-      android:id="@+id/txtLblMonday"
-      android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:text="Mon"
-      android:gravity="center"
-      app:layout_constraintEnd_toStartOf="@+id/txtLblTuesday"
-		app:layout_constraintHorizontal_bias="0.5"
-      app:layout_constraintStart_toEndOf="@+id/txtLblSunday"
-		app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/txtLblMonday"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Mon"
+        app:layout_constraintEnd_toStartOf="@+id/txtLblTuesday"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/txtLblSunday"
+        app:layout_constraintTop_toTopOf="parent" />
 
-	<TextView
-      android:id="@+id/txtLblTuesday"
-      android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:text="Tue"
-      android:gravity="center"
-      app:layout_constraintEnd_toStartOf="@+id/txtLblWednesday"
-		app:layout_constraintHorizontal_bias="0.5"
-      app:layout_constraintStart_toEndOf="@+id/txtLblMonday"
-		app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/txtLblTuesday"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Tue"
+        app:layout_constraintEnd_toStartOf="@+id/txtLblWednesday"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/txtLblMonday"
+        app:layout_constraintTop_toTopOf="parent" />
 
-	<TextView
-      android:id="@+id/txtLblWednesday"
-      android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:text="Wed"
-      android:gravity="center"
-      app:layout_constraintEnd_toStartOf="@+id/txtLblThursday"
-		app:layout_constraintHorizontal_bias="0.5"
-      app:layout_constraintStart_toEndOf="@+id/txtLblTuesday"
-		app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/txtLblWednesday"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Wed"
+        app:layout_constraintEnd_toStartOf="@+id/txtLblThursday"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/txtLblTuesday"
+        app:layout_constraintTop_toTopOf="parent" />
 
-	<TextView
-      android:id="@+id/txtLblThursday"
-      android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:text="Thu"
-      android:gravity="center"
-      app:layout_constraintEnd_toStartOf="@+id/txtLblFriday"
-		app:layout_constraintHorizontal_bias="0.5"
-      app:layout_constraintStart_toEndOf="@+id/txtLblWednesday"
-		app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/txtLblThursday"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Thu"
+        app:layout_constraintEnd_toStartOf="@+id/txtLblFriday"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/txtLblWednesday"
+        app:layout_constraintTop_toTopOf="parent" />
 
-	<TextView
-      android:id="@+id/txtLblFriday"
-      android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:text="Fri"
-      android:gravity="center"
-      app:layout_constraintEnd_toStartOf="@+id/txtLblSaturday"
-		app:layout_constraintHorizontal_bias="0.5"
-      app:layout_constraintStart_toEndOf="@+id/txtLblThursday"
-		app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/txtLblFriday"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Fri"
+        app:layout_constraintEnd_toStartOf="@+id/txtLblSaturday"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/txtLblThursday"
+        app:layout_constraintTop_toTopOf="parent" />
 
-	<TextView
-      android:id="@+id/txtLblSaturday"
-      android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:text="Sat"
-      android:gravity="center"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="0.5"
-      app:layout_constraintStart_toEndOf="@+id/txtLblFriday"
-		app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/txtLblSaturday"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Sat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/txtLblFriday"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="4dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:background="#CCCCCC"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtLblSaturday" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,8 +11,11 @@ import androidx.fragment.app.Fragment
 import com.ife.customcalendar.CalendarDayViewContainer
 import com.ife.customcalendar.R
 import com.kizitonwose.calendarview.model.CalendarDay
+import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.model.DayOwner
+import com.kizitonwose.calendarview.model.ScrollMode
 import com.kizitonwose.calendarview.ui.DayBinder
+import com.kizitonwose.calendarview.ui.MonthScrollListener
 import kotlinx.android.synthetic.main.layout_calendar.*
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
@@ -26,9 +29,7 @@ class FragmentCalendar : Fragment()
     private val selectedDates = mutableSetOf<LocalDate>()
     private val today = LocalDate.now()
     private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
-    private val yearArray = arrayListOf<String>()
-
-
+    private val yearArray = mutableListOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +46,7 @@ class FragmentCalendar : Fragment()
         // Always generate +20 years from the current year
         for(i in Year.now().value..Year.now().value + 20)
         {
+            println("Setting calendar years")
             yearArray.add(i.toString())
         }
 
@@ -60,9 +62,19 @@ class FragmentCalendar : Fragment()
 
         calendarView.setup(firstMonth, lastMonth, firstDayOfWeek)
         calendarView.scrollToMonth(currentMonth)
+        calendarView.scrollMode = ScrollMode.PAGED
 //        calendarView.hasBoundaries = true
 //        calendarView.inDateStyle = InDateStyle.NONE
 //        calendarView.outDateStyle = OutDateStyle.NONE
+
+        calendarView.monthScrollListener = object : MonthScrollListener{
+            override fun invoke(p1: CalendarMonth) {
+                println("CalendarMonth Year: ${p1.year} | Month: ${p1.month}")
+                println("Set spinner text to: ${yearArray.indexOf((p1.year).toString())}")
+//                spinnerMonthSelector.setSelection(p1.month)
+                spinnerYearSelector.setSelection(yearArray.indexOf(p1.year.toString()))
+            }
+        }
 
         calendarView.dayBinder = object : DayBinder<CalendarDayViewContainer>
         {
@@ -103,6 +115,10 @@ class FragmentCalendar : Fragment()
                     }
 
                 }
+                else
+                {
+                    container.calendarDayTextView?.setTextColor(context!!.getColor(R.color.colorInOutDates))
+                }
             }
         }
 
@@ -110,8 +126,6 @@ class FragmentCalendar : Fragment()
 
     private fun initMonthSpinner()
     {
-
-        /*** MONTH SPINNER **/
         ArrayAdapter.createFromResource(
             context!!,
             R.array.days_of_month,
@@ -167,7 +181,6 @@ class FragmentCalendar : Fragment()
 
     private fun initYearSpinner()
     {
-        /*** YEAR SPINNER **/
         ArrayAdapter<String>(
             context!!,
             R.layout.simple_spinner_item,

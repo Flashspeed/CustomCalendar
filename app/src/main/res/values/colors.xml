@@ -8,4 +8,5 @@
     <color name="colorSelectedDay">#F45350</color>
     <color name="colorCurrentDay">#F1B6B5</color>
     <color name="colorNormalUnselectedCalendarDay">#000000</color>
+    <color name="colorInOutDates">#CECECE</color>
 </resources>

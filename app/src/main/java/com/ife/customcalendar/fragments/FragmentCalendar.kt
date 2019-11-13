@@ -156,7 +156,6 @@ class FragmentCalendar : Fragment()
                     val selectedMonth = (position + 1).toString().padStart(2, '0')
                     val yearMonthToScrollTo = "${spinnerYearSelector.selectedItem}-${selectedMonth}"
                     calendarView.scrollToMonth(
-                        //TODO make year dynamic instead of always using current year
                         YearMonth.parse(yearMonthToScrollTo)
                     )
                 }

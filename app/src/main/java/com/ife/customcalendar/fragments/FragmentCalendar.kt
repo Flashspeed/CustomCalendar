@@ -42,6 +42,7 @@ class FragmentCalendar : Fragment()
     {
         super.onViewCreated(view, savedInstanceState)
 
+        // Always generate +20 years from the current year
         for(i in Year.now().value..Year.now().value + 20)
         {
             yearArray.add(i.toString())
@@ -49,6 +50,8 @@ class FragmentCalendar : Fragment()
 
         val currentMonth = YearMonth.now()
         val firstMonth = currentMonth.minusMonths(0)
+
+        /* 20 years * 12 months */
         val lastMonth = currentMonth.plusMonths(yearArray.count() * 12.toLong())
         val firstDayOfWeek = DayOfWeek.SUNDAY
 

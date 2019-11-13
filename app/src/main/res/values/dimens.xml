@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="spinnerWidth">120dp</dimen>
     <dimen name="spinnerHeight">50dp</dimen>
+    <dimen name="spinnerItemHeight">50dp</dimen>
+    <dimen name="spinnerItemPadding">12dp</dimen>
 </resources>

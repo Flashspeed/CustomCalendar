@@ -8,4 +8,26 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SpinnerItemStyle" parent="Widget.AppCompat.TextView.SpinnerItem">
+        <item name="android:layout_width">@dimen/spinnerWidth</item>
+        <item name="android:layout_height">@dimen/spinnerHeight</item>
+        <item name="android:dropDownVerticalOffset">@dimen/spinnerHeight</item>
+        <item name="android:dropDownWidth">@dimen/spinnerWidth</item>
+        <item name="android:dropDownHeight">40dp</item>
+        <item name="android:background">@drawable/shape_rectangle_rounded_with_arrow_for_spinner
+        </item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="SpinnerDropdownItemStyle" parent="TextAppearance.AppCompat.Widget.TextView.SpinnerItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/spinnerItemHeight</item>
+        <item name="android:padding">@dimen/spinnerItemPadding</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

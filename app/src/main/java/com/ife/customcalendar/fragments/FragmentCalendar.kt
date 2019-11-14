@@ -1,6 +1,7 @@
 package com.ife.customcalendar.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +12,9 @@ import androidx.fragment.app.Fragment
 import com.ife.customcalendar.CalendarDayViewContainer
 import com.ife.customcalendar.R
 import com.kizitonwose.calendarview.model.CalendarDay
-import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.model.ScrollMode
 import com.kizitonwose.calendarview.ui.DayBinder
-import com.kizitonwose.calendarview.ui.MonthScrollListener
 import kotlinx.android.synthetic.main.layout_calendar.*
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
@@ -67,13 +66,13 @@ class FragmentCalendar : Fragment()
 //        calendarView.inDateStyle = InDateStyle.NONE
 //        calendarView.outDateStyle = OutDateStyle.NONE
 
-        calendarView.monthScrollListener = object : MonthScrollListener{
-            override fun invoke(p1: CalendarMonth) {
-                println("CalendarMonth Year: ${p1.year} | Month: ${p1.month}")
-                println("Set spinner text to: ${yearArray.indexOf((p1.year).toString())}")
-//                spinnerMonthSelector.setSelection(p1.month)
-                spinnerYearSelector.setSelection(yearArray.indexOf(p1.year.toString()))
-            }
+        calendarView.monthScrollListener = {
+            Log.d("pxx", "CalendarMonth Year: ${it.year} | Month: ${it.month}")
+            Log.d("pxx", "Set spinner text to: ${yearArray.indexOf((it.year).toString())}")
+
+            spinnerYearSelector.setSelection(yearArray.indexOf(it.year.toString()))
+            spinnerMonthSelector.setSelection(it.yearMonth.month.ordinal)
+            calendarView.notifyMonthChanged(it.yearMonth)
         }
 
         calendarView.dayBinder = object : DayBinder<CalendarDayViewContainer>
@@ -83,6 +82,7 @@ class FragmentCalendar : Fragment()
             override fun create(view: View): CalendarDayViewContainer = CalendarDayViewContainer(
                 view,
                 calendarView,
+                dateViewer,
                 selectedDates
             )
 
@@ -117,6 +117,10 @@ class FragmentCalendar : Fragment()
                 }
                 else
                 {
+                    if(day.date.isBefore(today))
+                    {
+                        container.calendarDayTextView?.setTextColor(context!!.getColor(R.color.colorInOutDates))
+                    }
                     container.calendarDayTextView?.setTextColor(context!!.getColor(R.color.colorInOutDates))
                 }
             }

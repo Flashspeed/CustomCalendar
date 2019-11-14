@@ -103,7 +103,7 @@ class FragmentCalendar : Fragment() {
                 container.day = day
                 container.calendarDayTextView?.text = day.date.dayOfMonth.toString()
 
-                if (day.owner == DayOwner.THIS_MONTH) {
+                if (day.owner == DayOwner.THIS_MONTH && (day.date == today || day.date.isAfter(today))) {
                     when(day.date) {
                         selectedDate -> {
                             container.calendarDayTextView?.setTextColor(context!!.getColor(R.color.colorWhite))

@@ -3,8 +3,8 @@
     android:shape="oval">
 
     <size
-        android:width="30dp"
-        android:height="30dp" />
+        android:width="@dimen/selectedDayCircleSize"
+        android:height="@dimen/selectedDayCircleSize" />
 
     <solid android:color="@color/colorSelectedDay" />
 </shape>

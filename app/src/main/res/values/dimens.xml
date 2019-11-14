@@ -4,4 +4,5 @@
     <dimen name="spinnerHeight">50dp</dimen>
     <dimen name="spinnerItemHeight">50dp</dimen>
     <dimen name="spinnerItemPadding">12dp</dimen>
+    <dimen name="selectedDayCircleSize">40dp</dimen>
 </resources>

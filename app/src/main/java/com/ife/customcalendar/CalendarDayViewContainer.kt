@@ -27,11 +27,10 @@ class CalendarDayViewContainer(
     init
     {
         view.setOnClickListener {
-            Log.d("pxx", "SelectedDates: ${selectedDates}")
+
             /* Don't allow dates older than the current day to be selectable */
             if(day.owner == DayOwner.THIS_MONTH && (day.date == today || day.date.isAfter(today)))
             {
-
                 /* Check if a date is already selected, remove it from the array if it is
                  * or add it to the array if it isn't already selected.*/
                 if(selectedDates.contains(day.date))
@@ -50,8 +49,9 @@ class CalendarDayViewContainer(
                         updateDateViewerTextView(dateViewer, selectedDate.toString())
                     }
                 }
-                Log.d("pxx", "Chosen date: ${day.date}")
 
+                Log.d("pxx", "SelectedDates: ${selectedDates}")
+                Log.d("pxx", "SelectedDates count: ${selectedDates.count()}")
                 calendarView.notifyDayChanged(day)
             }
         }

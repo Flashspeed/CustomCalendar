@@ -7,44 +7,42 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.ife.customcalendar.CalendarDayViewContainer
 import com.ife.customcalendar.R
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.model.ScrollMode
 import com.kizitonwose.calendarview.ui.DayBinder
+import com.kizitonwose.calendarview.ui.ViewContainer
 import kotlinx.android.synthetic.main.layout_calendar.*
+import kotlinx.android.synthetic.main.layout_calendar_day.view.*
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 import org.threeten.bp.Year
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
 
-class FragmentCalendar : Fragment()
-{
+class FragmentCalendar : Fragment() {
 
-    private val selectedDates = mutableSetOf<LocalDate>()
     private val today = LocalDate.now()
+    private var selectedDate: LocalDate? = null
     private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
     private val yearArray = mutableListOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View?
-    {
+    ): View? {
         return inflater.inflate(R.layout.layout_calendar, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?)
-    {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // Always generate +20 years from the current year
-        for(i in Year.now().value..Year.now().value + 20)
-        {
+        for (i in Year.now().value..Year.now().value + 20) {
             println("Setting calendar years")
             yearArray.add(i.toString())
         }
@@ -75,50 +73,54 @@ class FragmentCalendar : Fragment()
             calendarView.notifyMonthChanged(it.yearMonth)
         }
 
-        calendarView.dayBinder = object : DayBinder<CalendarDayViewContainer>
-        {
+        class CalendarDayViewContainer(view: View) : ViewContainer(view) {
+            val calendarDayTextView: TextView? = view.txtCalendarDayText
+
+            // Will be set when this container is bound. See the dayBinder.
+            lateinit var day: CalendarDay
+
+            init {
+                view.setOnClickListener {
+
+                    /* Don't allow dates older than the current day to be selectable */
+                    if (day.owner == DayOwner.THIS_MONTH && (day.date == today || day.date.isAfter(today))) {
+                        selectDate(day.date)
+                        txtDateViewer.text = day.date.toString()
+                    }
+                }
+            }
+        }
+
+        calendarView.dayBinder = object : DayBinder<CalendarDayViewContainer> {
 
             // Called only when a new container is needed
             override fun create(view: View): CalendarDayViewContainer = CalendarDayViewContainer(
-                view,
-                calendarView,
-                dateViewer,
-                selectedDates
+                view
             )
 
             // Called every time a container needs to be reused
-            override fun bind(container: CalendarDayViewContainer, day: CalendarDay)
-            {
+            override fun bind(container: CalendarDayViewContainer, day: CalendarDay) {
                 container.day = day
                 container.calendarDayTextView?.text = day.date.dayOfMonth.toString()
 
-                if(day.owner == DayOwner.THIS_MONTH)
-                {
-                    when
-                    {
-                        selectedDates.contains(day.date) ->
-                        {
+                if (day.owner == DayOwner.THIS_MONTH) {
+                    when(day.date) {
+                        selectedDate -> {
                             container.calendarDayTextView?.setTextColor(context!!.getColor(R.color.colorWhite))
                             container.calendarDayTextView?.setBackgroundResource(R.drawable.shape_selected_day_background)
                         }
-                        today == day.date ->
-                        {
+                        today -> {
                             container.calendarDayTextView?.setTextColor(context!!.getColor(R.color.colorWhite))
                             container.calendarDayTextView?.setBackgroundResource(R.drawable.shape_curent_day_background)
                         }
-                        else ->
-                        {
+                        else -> {
                             container.calendarDayTextView?.setTextColor(context!!.getColor(R.color.colorNormalUnselectedCalendarDay))
                             container.calendarDayTextView?.background = null
-
                         }
                     }
 
-                }
-                else
-                {
-                    if(day.date.isBefore(today))
-                    {
+                } else {
+                    if (day.date.isBefore(today)) {
                         container.calendarDayTextView?.setTextColor(context!!.getColor(R.color.colorInOutDates))
                     }
                     container.calendarDayTextView?.setTextColor(context!!.getColor(R.color.colorInOutDates))
@@ -128,8 +130,7 @@ class FragmentCalendar : Fragment()
 
     }
 
-    private fun initMonthSpinner()
-    {
+    private fun initMonthSpinner() {
         ArrayAdapter.createFromResource(
             context!!,
             R.array.days_of_month,
@@ -139,13 +140,11 @@ class FragmentCalendar : Fragment()
             spinnerMonthSelector.adapter = adapter
         }
 
-        spinnerMonthSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener
-        {
+        spinnerMonthSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
             var loadedOnce = true
 
-            override fun onNothingSelected(parent: AdapterView<*>?)
-            {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
             }
 
             override fun onItemSelected(
@@ -153,10 +152,8 @@ class FragmentCalendar : Fragment()
                 view: View?,
                 position: Int,
                 id: Long
-            )
-            {
-                if(loadedOnce)
-                {
+            ) {
+                if (loadedOnce) {
                     val currentMonth = (YearMonth.now().month.ordinal + 1).toString()
                         .padStart(2, '0')
 
@@ -168,9 +165,7 @@ class FragmentCalendar : Fragment()
 
                     loadedOnce = false
 
-                }
-                else
-                {
+                } else {
                     val selectedMonth = (position + 1).toString().padStart(2, '0')
                     val yearMonthToScrollTo = "${spinnerYearSelector.selectedItem}-${selectedMonth}"
                     calendarView.scrollToMonth(
@@ -183,8 +178,7 @@ class FragmentCalendar : Fragment()
         }
     }
 
-    private fun initYearSpinner()
-    {
+    private fun initYearSpinner() {
         ArrayAdapter<String>(
             context!!,
             R.layout.simple_spinner_item,
@@ -198,10 +192,8 @@ class FragmentCalendar : Fragment()
             println("Year: $it")
         }
 
-        spinnerYearSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener
-        {
-            override fun onNothingSelected(parent: AdapterView<*>?)
-            {
+        spinnerYearSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
             }
 
             override fun onItemSelected(
@@ -209,12 +201,12 @@ class FragmentCalendar : Fragment()
                 view: View?,
                 position: Int,
                 id: Long
-            )
-            {
-                val yearMonthToScrollTo = "${spinnerYearSelector.getItemAtPosition(position)}-${(spinnerMonthSelector.selectedItemPosition + 1).toString().padStart(
-                    2,
-                    '0'
-                )}"
+            ) {
+                val yearMonthToScrollTo =
+                    "${spinnerYearSelector.getItemAtPosition(position)}-${(spinnerMonthSelector.selectedItemPosition + 1).toString().padStart(
+                        2,
+                        '0'
+                    )}"
 
                 Toast.makeText(context!!, yearMonthToScrollTo, Toast.LENGTH_SHORT).show()
 
@@ -225,21 +217,14 @@ class FragmentCalendar : Fragment()
         }
     }
 
-}
+    private fun selectDate(date: LocalDate) {
+        if (selectedDate != date) {
+            val oldDate = selectedDate
+            selectedDate = date
+            oldDate?.let { calendarView.notifyDateChanged(it) }
+            calendarView.notifyDateChanged(date)
+        }
+    }
 
-object Constants
-{
-    const val JANUARY = 0
-    const val FEBRUARY = 1
-    const val MARCH = 2
-    const val APRIL = 3
-    const val MAY = 4
-    const val JUNE = 5
-    const val JULY = 6
-    const val AUGUST = 7
-    const val SEPTEMBER = 8
-    const val OCTOBER = 9
-    const val NOVEMBER = 10
-    const val DECEMBER = 11
 }
 

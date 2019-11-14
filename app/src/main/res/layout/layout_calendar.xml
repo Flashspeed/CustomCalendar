@@ -140,7 +140,7 @@
         app:layout_constraintTop_toBottomOf="@id/constraintLayoutDaysOfWeek" />
 
     <TextView
-        android:id="@+id/dateViewer"
+        android:id="@+id/txtDateViewer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Date"
